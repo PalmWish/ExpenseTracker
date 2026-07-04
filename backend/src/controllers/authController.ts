@@ -36,4 +36,11 @@ const loginChecking = async( req: Request, res: Response) => {
         }
 }
 
-export { authChecking, loginChecking }
+const profile = async (req: Request, res: Response) => {
+    return res.json({
+        message: "Authenticated",
+        userId: req.userId
+    })
+}
+
+export { authChecking, loginChecking, profile }
