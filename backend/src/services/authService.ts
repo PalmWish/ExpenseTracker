@@ -66,4 +66,52 @@ const login = async (
     }
 }
 
-export {register, login }
+const getIdUser = async (user_Id: string) =>{
+
+    const idUser = await userRepository.findById(user_Id)
+
+    if(!idUser){
+        throw new Error("Invalid Id.")
+    } 
+
+    return idUser
+}
+
+const updateUser = async(
+    user_Id: string,
+    data:{
+        name: string,
+        email: string,
+        password: string
+    }) =>{
+        if(data.password){
+            data.password = await bcrypt.hash(
+                data.password, 10 
+            )
+        }
+
+        const user = await userRepository.updateUser(
+            user_Id,
+            data
+        )
+
+        if(!user){
+            throw new Error("User not found.")
+        }
+
+        return user;
+    
+    }
+
+
+const deleteUser = async (userId: string) =>{
+
+    const del = await userRepository.deleteUser(userId)
+
+    if(!del){
+        throw new Error("User not found.")
+    }
+
+    return del;
+}
+export {register, login, getIdUser, updateUser, deleteUser }
