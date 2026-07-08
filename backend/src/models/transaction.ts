@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { kMaxLength } from "node:buffer";
 
 const transactionSchema = new Schema(
     {
@@ -14,14 +15,16 @@ const transactionSchema = new Schema(
         },
         amount:{
             type: Number,
-            required: true
+            required: true,
+            min: 0
         },
         category:{
             type: String,
             required: true
         },
         description:{
-            type: String
+            type: String,
+            
         },
         date:{
             type: Date,
