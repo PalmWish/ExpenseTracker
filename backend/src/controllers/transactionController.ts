@@ -28,7 +28,7 @@ const create = async (req: Request, res: Response) =>{
 const getAll = async (req: Request, res: Response) =>{
     
     try{
-        const transaction = await transactionService.getAll(req.userId!)
+        const transaction = await transactionService.getAll(req.userId!, req.query)
 
         res.status(200).json(transaction)
     } 
@@ -96,4 +96,16 @@ const remove = async (req: Request<{id: string}>, res: Response) =>{
         }
 }
 
-export { create, getAll, getById, update, remove }
+const summary = async (req: Request, res: Response) =>{
+    try{
+        const result = await transactionService.getSummary(req.userId!)
+
+        res.json(result)
+    }
+    catch(error: any){
+            res.status(400).json({
+                message: error.message
+            })
+        }
+} 
+export { create, getAll, getById, update, remove, summary }
