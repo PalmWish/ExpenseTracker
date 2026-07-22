@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import * as authService from "../services/authService"
-import user from "../models/user";
 
 const authChecking = async (req: Request, res: Response) => {
     try{

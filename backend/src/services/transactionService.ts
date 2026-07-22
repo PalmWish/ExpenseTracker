@@ -13,6 +13,17 @@ const create =  async (
         throw new Error("Please fill all fields.")
     }
 
+    if(!["income", "expense"].includes(type)){
+        throw new Error("Invalid transaction type.")
+    }
+    
+    if(amount < 0){
+        throw new Error("Amount must be greater than 0.")
+    }
+
+    if(category.trim() === ""){
+        throw new Error("Category is required.")
+    }
     return await transactionRepository.createTransaction({
     userId,
     type,
@@ -23,8 +34,18 @@ const create =  async (
     })
 }
 
-const getAll = async (userId: string) =>{
-    return await transactionRepository.findAll(userId)
+const getAll = async (userId: string, query: any) =>{
+    
+    const filter: any = {};
+
+    if(query.type){
+        filter.type = query.type
+    }
+
+    if(query.category){
+        filter.category = query.category
+    }
+    return await transactionRepository.findAll(userId, filter)
 }
 
 const getById = async (
@@ -55,6 +76,14 @@ const update = async (id: string,
         throw new Error("Transaction not found.")
     }
 
+    if(data.amount !== undefined && data.amount < 0){
+        throw new Error("Amount must be greater than 0.")
+    }
+
+    if(data.type && !["income", "expense"].includes(data.type)){
+        throw new Error("Invalid transaction type.")
+    }
+
     return transaction
 }
 
@@ -72,4 +101,29 @@ const remove = async (
     }
 }
 
-export { create, getAll, getById, update, remove }
+const getSummary = async (userId: string) =>{
+
+    const summary = await transactionRepository.getSummary(userId)
+
+    let income = 0;
+    let expense = 0;
+
+    summary.forEach(item =>{
+
+        if(item._id == "income"){
+            income = item.total;
+        }
+
+        if(item._id == "expense"){
+            expense = item.total;
+        }
+    })   
+    
+    return {
+        income,
+        expense,
+        balance: income - expense
+    }
+}
+
+export { create, getAll, getById, update, remove, getSummary }

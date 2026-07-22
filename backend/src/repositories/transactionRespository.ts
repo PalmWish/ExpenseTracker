@@ -1,11 +1,12 @@
 import Transaction from "../models/transaction";
+import mongoose from "mongoose";
 
 const createTransaction = async (data: any) =>{
     return await Transaction.create(data)
 }
 
-const findAll = async (userId: string) =>{
-    return await Transaction.find({ userId }).sort({
+const findAll = async (userId: string, filter: any) =>{
+    return await Transaction.find({ userId, ...filter }).sort({
         createAt: -1
     })
 }
@@ -47,4 +48,23 @@ const deleteTransactions = async (
     })
 }
 
-export {createTransaction, findAll, findById ,updateTransactions, deleteTransactions }
+const getSummary = async (userId: string) =>{
+    return await Transaction.aggregate([
+        {
+            $match: {
+                userId: new mongoose.Types.ObjectId(userId)
+            }
+        },
+        {
+            $group: {
+                _id: "$type",
+                total: {
+                    $sum: "$amount"
+                }
+            }
+        }
+    ])
+}
+
+
+export {createTransaction, findAll, findById ,updateTransactions, deleteTransactions,getSummary }
