@@ -1,9 +1,17 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../api/axios";
+import { useAuth} from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Login(){
+
+    const { login } = useAuth();
+    const navigate = useNavigate();
+    
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,7 +24,8 @@ function Login(){
                 password
             })
 
-            localStorage.setItem("token", res.data.token)
+            login(res.data.token, res.data.user)
+            navigate("/dashboard")
 
             console.log("Login Success!")
             console.log(res.data)
@@ -40,6 +49,9 @@ function Login(){
             />
 
             <button>Login</button>
+
+            <p>Don't have an account? <Link to="/register">Register</Link></p>
+
         </form>
     )   
         
