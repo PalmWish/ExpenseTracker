@@ -1,42 +1,39 @@
-import { useEffect, useState } from "react";
-import api from "../api/axios";
+import type { Transaction } from "../types/transaction";
+import * as transactionService from "../services/transactionService"
+import { useState } from "react";
+type Props ={
+    transactions: Transaction[];
+    onDelete: () => void;
+    onEdit: (transaction: Transaction) => void;
+}
 
-type Transaction = {
-    _id: string;
-    type: "income" | "expense";
-    amount: number;
-    category: string;
-    description: string;
-    date: string;
-};
+function TransactionList({transactions, onDelete, onEdit}: Props) {
 
-function TransactionList() {
-    console.log("Transaction Render");
+    const [error, setError] = useState("");
 
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    async function handleDelete(id: string) {
+        const confirmDelete = window.confirm("Delete this transaction?");
 
-    async function fetchTransaction() {
-        console.log("Hello");
+        if(!confirmDelete) return;
+        try{
+            await transactionService.deleteTransactions(id)
 
-        try {
-            const res = await api.get("/transactions");
-            setTransactions(res.data);
-        } catch (err) {
-            console.log(err);
+            onDelete();
         }
+        catch(err){
+            console.log(err)
+            setError("Delete failed")
+        }
+
     }
-
-    useEffect(() => {
-        console.log("useEffect");
-        fetchTransaction();
-    }, []);
-
     return (
         <div>
             <h2>Transaction</h2>
 
+            {error && <p>{error}</p>}
+
             {transactions.length === 0 ? (
-                <p>No Transaction</p>
+                <p>No transactions yet. Add your first transaction.</p>
             ) : (
                 transactions.map((item) => (
                     <div key={item._id}>
@@ -53,6 +50,12 @@ function TransactionList() {
                         </p>
 
                         <hr />
+
+                        <button onClick={() => onEdit(item)}>Edit</button>
+
+                        <button onClick={() => handleDelete(item._id)}>Delete</button>
+
+                        <hr />
                     </div>
                 ))
             )}
@@ -60,4 +63,4 @@ function TransactionList() {
     );
 }
 
-export default TransactionList;
+export {TransactionList, type Transaction};
