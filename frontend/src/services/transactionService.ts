@@ -1,7 +1,15 @@
 import api from "../api/axios";
 
-const getTransactions = () =>{
-    return api.get("/transactions");
+const getTransactions = (search: string, type: string, sort: string, page: number) =>{
+    return api.get("/transactions",{
+        params: {
+            search,
+            type,
+            sort,
+            page,
+            limit: 5
+        }
+    });
 }
 
 const getSummary = () =>{

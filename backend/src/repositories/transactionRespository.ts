@@ -5,10 +5,8 @@ const createTransaction = async (data: any) =>{
     return await Transaction.create(data)
 }
 
-const findAll = async (userId: string, filter: any) =>{
-    return await Transaction.find({ userId, ...filter }).sort({
-        createAt: -1
-    })
+const findAll = async (userId: string, filter: any, sort: any, page: number, limit:  number) =>{
+    return await Transaction.find({ userId, ...filter }).sort(sort).skip((page - 1) * limit).limit(limit)
 }
 
 const findById = async (id: string, userId: string) =>{

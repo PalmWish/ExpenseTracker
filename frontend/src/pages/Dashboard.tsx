@@ -16,6 +16,10 @@ function Dashboard(){
     })
 
     const [ transactions, setTransactions] = useState<Transaction[]>([]);
+    const [ search, setSearch] = useState("");
+    const [ typeFilter, setTypeFilter] = useState("all");
+    const [sort, setSort] = useState("newest")
+    const [  page, setPage] = useState(1)
 
     const [editTransaction, setEditTransaction ] = useState<Transaction | null >(null);
 
@@ -41,7 +45,7 @@ function Dashboard(){
 }
     async function fetchTransactions() {
         try{
-            const res = await transactionService.getTransactions();
+            const res = await transactionService.getTransactions(search, typeFilter, sort, page);
             setTransactions(res.data)
         }
         catch(err){
@@ -57,7 +61,12 @@ function Dashboard(){
     }
     useEffect(() =>{
         refreshDashboard();
-    }, []);
+    }, [search, typeFilter, sort, page]);
+
+       useEffect(() =>{
+        setPage(1)
+        refreshDashboard();
+    }, [search, typeFilter, sort]);
 
     if (loading) {
     return <h2>Loading...</h2>;
@@ -82,7 +91,41 @@ function Dashboard(){
              title="Balance"
              amount={summary.balance} />
         </div>
+
+        <input
+        type="text"
+        placeholder="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)} />
+
+        <select 
+        value={typeFilter}
+        onChange={(e) => setTypeFilter(e.target.value)}>
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+
+        <select 
+        value={sort}
+        onChange={(e) => setSort(e.target.value)}>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="highest">Highest Amount</option>
+            <option value="lowest">Lowest Amount</option>
+        </select>
+
         <TransactionList transactions={transactions} onDelete={refreshDashboard} onEdit={setEditTransaction}/>
+
+        <div>
+            <button 
+            disabled={page===1}
+            onClick={() => setPage(page - 1)}>
+                Previous
+                </button>
+            <span> Page {page}</span>
+            <button onClick={() => setPage(page + 1)}> Next</button>
+        </div>
 
         <AddTransaction onSuccess={refreshDashboard}
         editingTransaction={editTransaction}
