@@ -38,14 +38,55 @@ const getAll = async (userId: string, query: any) =>{
     
     const filter: any = {};
 
-    if(query.type){
+    const page = Number(query.page) || 1;
+
+    const limit = Number(query.limit) || 5;
+
+    let sort: any ={
+        createdAt: -1
+    }
+
+    if(query.type && query.type !== "all"){
         filter.type = query.type
     }
 
-    if(query.category){
-        filter.category = query.category
+    if(query.search){
+
+        filter.$or = [
+            {
+                category: {
+                    $regex: query.search,
+                    $options: "i"
+                }
+            },
+            {
+                description: {
+                    $regex: query.search,
+                    $options: "i"
+                }
+            }
+        ];
     }
-    return await transactionRepository.findAll(userId, filter)
+
+    if(query.sort === "oldest"){
+            sort = {
+                createdAt: 1
+            }
+        }
+
+        if(query.sort === "highest"){
+            sort = {
+                amount: -1
+            }
+        }
+
+        if(query.sort === "lowest"){
+            sort = {
+                amount: 1
+            }
+        }
+
+    return await transactionRepository.findAll(userId, filter, sort, page, limit)
 }
 
 const getById = async (
