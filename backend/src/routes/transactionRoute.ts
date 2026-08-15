@@ -59,6 +59,9 @@ router.get("/summary", transactionController.summary);
  *       404:
  *         description: Transaction not found
  */
+
+router.get("/statistics/category",transactionController.getExpenseByCategory);
+
 router.get("/:id", transactionController.getById);
 
 /**

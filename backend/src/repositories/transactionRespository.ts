@@ -5,8 +5,76 @@ const createTransaction = async (data: any) =>{
     return await Transaction.create(data)
 }
 
-const findAll = async (userId: string, filter: any, sort: any, page: number, limit:  number) =>{
-    return await Transaction.find({ userId, ...filter }).sort(sort).skip((page - 1) * limit).limit(limit)
+const findAll = async (userId: string, filter: any, sort: any, page: number, limit:  number, sortByValue: "highest" | "lowest" | null) =>{
+    
+    if(sortByValue){
+        const transactions = await Transaction.aggregate([
+            {
+                $match: {
+                    userId: new mongoose.Types.ObjectId(userId), ...filter
+                }
+            },
+            {
+                $addFields: {
+                    sortValue: {
+                        $cond: [
+                            {
+                                $eq: ["$type", "income"]
+                            },
+                            "$amount",
+                            {
+                                $multiply: ["$amount", -1]
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                $sort: {
+                    sortValue: sortByValue === "highest" ? -1 : 1
+                }
+            },
+            {
+                $skip: (page - 1) * limit
+            },
+            {
+                $limit: limit
+            }
+        ]); 
+
+        const total = await Transaction.countDocuments({userId, ...filter})
+
+        return { transactions, total };
+    }
+    const transactions = await Transaction.find({ userId, ...filter }).sort(sort).skip((page - 1) * limit).limit(limit)
+
+    const total = await Transaction.countDocuments({userId, ...filter})
+
+    return { transactions, total };
+}
+
+const getExpenseByCategory = async (userId: string) => {
+    return await Transaction.aggregate([
+        {
+            $match: {
+                userId: new mongoose.Types.ObjectId(userId),
+                type: "expense"
+            }
+        },
+        {
+            $group: {
+                _id: "$category",
+                total: {
+                    $sum: "$amount"
+                }
+            }
+        },
+        {
+            $sort: {
+                total: -1
+            }
+        }
+    ]) 
 }
 
 const findById = async (id: string, userId: string) =>{
@@ -65,4 +133,4 @@ const getSummary = async (userId: string) =>{
 }
 
 
-export {createTransaction, findAll, findById ,updateTransactions, deleteTransactions,getSummary }
+export {createTransaction, findAll, getExpenseByCategory, findById ,updateTransactions, deleteTransactions,getSummary }

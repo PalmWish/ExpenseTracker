@@ -2,6 +2,8 @@ import Navbar from "../components/Navbar";
 import SummaryCard from "../components/SummaryCard";
 import { TransactionList } from "../components/TransactionList"
 import type { Transaction } from "../types/transaction";
+import type { CategoryStat } from "../types/statistics";
+import ExpenseChart from "../components/ExpenseChart";
 import Logout from "../components/Logout";
 import AddTransaction from "../components/AddTransaction";
 import { useEffect, useState } from "react";
@@ -17,9 +19,12 @@ function Dashboard(){
 
     const [ transactions, setTransactions] = useState<Transaction[]>([]);
     const [ search, setSearch] = useState("");
+    const [ searchInput, setSearchInput] = useState("");
     const [ typeFilter, setTypeFilter] = useState("all");
-    const [sort, setSort] = useState("newest")
-    const [  page, setPage] = useState(1)
+    const [ sort, setSort] = useState("newest")
+    const [ page, setPage] = useState(1)
+    const [ totalPages, setTotalPages] = useState(1)
+    const [ expenseByCategory, setExpenseByCategory] = useState<CategoryStat[]>([])
 
     const [editTransaction, setEditTransaction ] = useState<Transaction | null >(null);
 
@@ -43,10 +48,23 @@ function Dashboard(){
             setLoading(false)
         }
 }
+    async function fetchExpenseByCategory() {
+        try{
+            const res = await transactionService.getExpenseByCategory()
+
+            setExpenseByCategory(res.data)
+        }
+        catch (err) {
+
+        setError("Failed to load expense statistics");
+
+    }
+    }
     async function fetchTransactions() {
         try{
             const res = await transactionService.getTransactions(search, typeFilter, sort, page);
-            setTransactions(res.data)
+            setTransactions(res.data.transactions)
+            setTotalPages(res.data.totalPages)
         }
         catch(err){
             console.log(err)
@@ -58,16 +76,15 @@ function Dashboard(){
 
         fetchSummary();
         fetchTransactions();
+        fetchExpenseByCategory();
     }
+
+
     useEffect(() =>{
         refreshDashboard();
     }, [search, typeFilter, sort, page]);
 
-       useEffect(() =>{
-        setPage(1)
-        refreshDashboard();
-    }, [search, typeFilter, sort]);
-
+    
     if (loading) {
     return <h2>Loading...</h2>;
 }
@@ -92,11 +109,21 @@ function Dashboard(){
              amount={summary.balance} />
         </div>
 
+        <ExpenseChart data={expenseByCategory} />
+
         <input
         type="text"
-        placeholder="Search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)} />
+        placeholder="Search Category or Description"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)} />
+        <button
+        type="button"
+        onClick={() =>{
+            setPage(1);
+            setSearch(searchInput);
+        }}>
+            Search
+        </button>
 
         <select 
         value={typeFilter}
@@ -123,8 +150,13 @@ function Dashboard(){
             onClick={() => setPage(page - 1)}>
                 Previous
                 </button>
-            <span> Page {page}</span>
-            <button onClick={() => setPage(page + 1)}> Next</button>
+
+            <span> Page {page} of {totalPages} </span>
+
+            <button
+            disabled={page>= totalPages} 
+            onClick={() => setPage(page + 1)}
+            > Next</button>
         </div>
 
         <AddTransaction onSuccess={refreshDashboard}
