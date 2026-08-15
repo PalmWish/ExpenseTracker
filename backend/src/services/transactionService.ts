@@ -1,3 +1,4 @@
+import transaction from "../models/transaction"
 import * as transactionRepository from "../repositories/transactionRespository"
 
 const create =  async (
@@ -46,6 +47,8 @@ const getAll = async (userId: string, query: any) =>{
         createdAt: -1
     }
 
+    let sortByValue: "highest" | "lowest" | null = null;
+
     if(query.type && query.type !== "all"){
         filter.type = query.type
     }
@@ -73,20 +76,29 @@ const getAll = async (userId: string, query: any) =>{
                 createdAt: 1
             }
         }
+    
+    if(query.sort === "highest"){
+        sortByValue = "highest"
+    }
 
-        if(query.sort === "highest"){
-            sort = {
-                amount: -1
-            }
+    if(query.sort === "lowest"){
+            sortByValue = "lowest"
         }
 
-        if(query.sort === "lowest"){
-            sort = {
-                amount: 1
-            }
-        }
+        const result = await transactionRepository.findAll(userId, filter, sort, page, limit, sortByValue)
 
-    return await transactionRepository.findAll(userId, filter, sort, page, limit)
+        const totalPages = Math.ceil(result.total / limit)
+
+    return {
+        transactions: result.transactions,
+        total: result.total,
+        totalPages,
+        currentPage: page
+    }
+}
+
+const getExpenseByCategory = async (userId: string) => {
+    return await transactionRepository.getExpenseByCategory(userId)
 }
 
 const getById = async (
@@ -167,4 +179,4 @@ const getSummary = async (userId: string) =>{
     }
 }
 
-export { create, getAll, getById, update, remove, getSummary }
+export { create, getAll, getExpenseByCategory, getById, update, remove, getSummary }

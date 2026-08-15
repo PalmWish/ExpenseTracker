@@ -16,6 +16,10 @@ const getSummary = () =>{
     return api.get("/transactions/summary");
 }
 
+const getExpenseByCategory = () => {
+    return api.get("/transactions/statistics/category")
+}
+
 const createTransactions = (data: any) =>{
     return api.post("/transactions", data);
 }
@@ -28,4 +32,4 @@ const deleteTransactions = (id : string) =>{
     return api.delete(`/transactions/${id}`);
 }
 
-export {getTransactions, getSummary, createTransactions, updateTransactions, deleteTransactions}
+export {getTransactions, getSummary, getExpenseByCategory, createTransactions, updateTransactions, deleteTransactions }

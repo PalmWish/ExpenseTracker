@@ -40,6 +40,19 @@ const getAll = async (req: Request, res: Response) =>{
         }
 }
 
+const getExpenseByCategory = async (req: Request, res: Response) =>{
+    try{
+        const result = await transactionService.getExpenseByCategory(req.userId!)
+
+        res.status(200).json(result)
+    }
+    catch(error: any){
+                res.status(400).json({
+                    message: error.message
+                })
+        }
+} 
+
 const getById = async (req: Request<{id: string}>, res : Response) =>{
     
     try{
@@ -108,4 +121,4 @@ const summary = async (req: Request, res: Response) =>{
             })
         }
 } 
-export { create, getAll, getById, update, remove, summary }
+export { create, getAll, getExpenseByCategory, getById, update, remove, summary }
