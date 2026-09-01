@@ -41,7 +41,7 @@ function Dashboard() {
     }
 
     return (
-        <>
+        <div>
             <Navbar />
 
             {error && <p>{error}</p>}
@@ -88,7 +88,7 @@ function Dashboard() {
             />
 
             <Logout />
-        </>
+        </div>
     );
 }
 

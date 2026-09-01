@@ -1,0 +1,137 @@
+.transaction-list{
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.transaction-list h2{
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.transaction-table{
+    background-color: rgb(134, 217, 144);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.transaction-row{
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.transaction-row:last-child{
+    border-bottom: none;
+}
+
+.transaction-row:hover{
+    background-color: rgb(185, 238, 192);
+}
+
+.transaction-info p{
+    margin: 4px 0;
+}
+
+.transaction-category{
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.transaction-description{
+    color: #6b7280;
+}
+
+.transaction-date{
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+/*.transaction-type{
+   text-align: right; 
+}*/
+
+.transaction-type p{
+    margin: 4px 0;
+}
+
+.transaction-income{
+    color: #16a34a;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.transaction-expense{
+    color: #d2626d;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.transaction-type-text{
+    font-size: 13px;
+    color: #9ca3af;
+    text-transform: capitalize;
+}
+
+.transaction-action{
+    display: flex;
+    gap: 8px;
+    margin-left: 25px;
+}
+
+.edit-button{
+    padding: 8px 14px;
+    border: none;
+    border-radius: 7px;
+    background-color: rgb(149, 149, 249);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #93c5fd;
+    transition: 0.1s;
+}
+
+.edit-button:active{
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.delete-button{
+    padding: 8px 14px;
+    border: none;
+    border-radius: 7px;
+    background-color: oklch(78.473% 0.09939 19.491);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgb(246, 202, 202);
+}
+
+.delete-button:active{
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.no-transaction{
+    padding: 50px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+@media (max-width: 768px){
+    .transaction-row{
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .transaction-type{
+        text-align: left;
+    }
+    .transaction-action{
+        margin-left: 0;
+    }
+}

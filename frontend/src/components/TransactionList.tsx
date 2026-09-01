@@ -1,6 +1,8 @@
 import type { Transaction } from "../types/transaction";
 import * as transactionService from "../services/transactionService"
 import { useState } from "react";
+import "../styles/transactionList.css"
+
 type Props ={
     transactions: Transaction[];
     onDelete: () => void;
@@ -27,38 +29,44 @@ function TransactionList({transactions, onDelete, onEdit}: Props) {
 
     }
     return (
-        <div>
+        <div className="transaction-list">
+
             <h2>Transaction</h2>
 
+        <div className="transaction-table">
             {error && <p>{error}</p>}
 
             {transactions.length === 0 ? (
-                <p>No transactions yet. Add your first transaction.</p>
+                <p className="no-transaction">No transactions yet. Add your first transaction.</p>
             ) : (
                 transactions.map((item) => (
-                    <div key={item._id}>
-                        <p>Category: {item.category}</p>
-                        <p>Description: {item.description}</p>
-                        <p>
-                            Amount: {item.type === "income" ? "+" : "-"}
-                            {item.amount}
+                    <div key={item._id} className="transaction-row">
+                        <div className="transaction-info">
+
+                            <p className="transaction-category"> {item.category}</p>
+                            <p className="transaction-description"> {item.description || "-" }</p>
+                            <p className="transaction-date"> {new Date(item.date).toDateString()}</p>
+
+                        </div>
+
+                    <div className="transaction-type">
+                        <p className={item.type==="income"?"transaction-income":"transaction-expense"}>
+                            {item.type==="income"?"+":"-"}{item.amount.toLocaleString()}฿
                         </p>
-                        <p>Type: {item.type}</p>
-                        <p>
-                            Date:{" "}
-                            {new Date(item.date).toLocaleDateString()}
-                        </p>
 
-                        <hr />
-
-                        <button onClick={() => onEdit(item)}>Edit</button>
-
-                        <button onClick={() => handleDelete(item._id)}>Delete</button>
-
-                        <hr />
+                        <p className="transaction-type-text">{item.type}</p>
                     </div>
+
+                    <div className="transaction-action">
+
+                        <button className="edit-button" onClick={() => onEdit(item)}>Edit</button>
+
+                        <button className="delete-button" onClick={() => handleDelete(item._id)}>Delete</button>
+                    </div>
+                 </div>
                 ))
             )}
+            </div>
         </div>
     );
 }

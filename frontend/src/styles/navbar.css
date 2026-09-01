@@ -1,0 +1,25 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: rgb(14, 118, 166);
+    padding: 16px 32px;
+    color: white
+}
+
+h1{
+    margin: 0;
+
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h3{
+    margin: 0;
+
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+}
