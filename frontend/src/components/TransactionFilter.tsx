@@ -1,3 +1,5 @@
+import "../styles/transactionFilter.css"
+
 type Props = {
     searchInput: string;
     typeFilter: string;
@@ -19,7 +21,7 @@ function TransactionFilter({
     onSortChange
 }: Props) {
     return (
-        <div>
+        <div className="transaction-filter">
             <input
                 type="text"
                 placeholder="Search Category or Description"

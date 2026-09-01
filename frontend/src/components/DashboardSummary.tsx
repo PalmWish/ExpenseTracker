@@ -1,4 +1,5 @@
 import SummaryCard from "./SummaryCard";
+import "../styles/dashboardSummary.css"
 
 type Props = {
     income: number;
@@ -12,7 +13,7 @@ function DashboardSummary({
     balance
 }: Props) {
     return (
-        <div>
+        <div className="summary-container">
             <SummaryCard
                 title="Income"
                 amount={income}
