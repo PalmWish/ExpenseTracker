@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import DashBoardSummary from "../components/DashBoardSummary";
+import DashboardSummary from "../components/DashBoardSummary";
 import ExpenseChart from "../components/ExpenseChart";
 import TransactionFilter from "../components/TransactionFilter";
 import { TransactionList } from "../components/TransactionList";
@@ -45,7 +45,7 @@ function Dashboard() {
 
             {error && <p>{error}</p>}
 
-            <DashBoardSummary
+            <DashboardSummary
                 income={summary.income}
                 expense={summary.expense}
                 balance={summary.balance}
