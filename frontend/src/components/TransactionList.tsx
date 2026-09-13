@@ -1,7 +1,6 @@
 import type { Transaction } from "../types/transaction";
 import * as transactionService from "../services/transactionService"
 import { useState } from "react";
-import { useRef } from "react";
 import "../styles/transactionList.css"
 
 type Props ={
@@ -13,7 +12,6 @@ type Props ={
 function TransactionList({transactions, onDelete, onEdit}: Props) {
 
     const [error, setError] = useState("");
-    const addTransactionRef = useRef<HTMLDivElement>(null)
 
     async function handleDelete(id: string) {
         const confirmDelete = window.confirm("Delete this transaction?");
