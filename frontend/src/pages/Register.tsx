@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Logo from "./logo";
+import Logo from "./Logo";
 import api from "../api/axios";
 import "../styles/register.css"
 

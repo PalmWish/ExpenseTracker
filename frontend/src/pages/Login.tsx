@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth} from "../context/AuthContext";
-import Logo from "./logo";
+import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css"
 
