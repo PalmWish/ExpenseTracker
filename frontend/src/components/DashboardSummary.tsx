@@ -7,7 +7,7 @@ type Props = {
     balance: number;
 };
 
-function DashBoardSummary({
+function DashboardSummary({
     income,
     expense,
     balance
@@ -32,4 +32,4 @@ function DashBoardSummary({
     );
 }
 
-export default DashBoardSummary;
+export default DashboardSummary;
