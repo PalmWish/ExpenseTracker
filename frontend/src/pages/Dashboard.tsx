@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import DashBoardSummary from "../components/DashBoardSummary"
+import DashBoardSummary from "../components/DashBoardSummary";
 import ExpenseChart from "../components/ExpenseChart";
 import TransactionFilter from "../components/TransactionFilter";
 import { TransactionList } from "../components/TransactionList";
