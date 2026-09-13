@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import api from "../api/axios";
+import "../styles/register.css"
 
 function Register(){
 
@@ -29,7 +30,7 @@ function Register(){
         }
     }
     return(
-        <form onSubmit={newRegister}>
+        <form onSubmit={newRegister} className="form-regis">
             <input
             placeholder="Name"
             type="text"
@@ -53,8 +54,8 @@ function Register(){
 
             <button>Create</button>
 
-            <Link to="/">
-                <button>Back to login page</button>
+            <Link to="/" className="back-login-button">
+                Back to login page
             </Link>
         </form>
     )

@@ -5,9 +5,8 @@ import TransactionFilter from "../components/TransactionFilter";
 import { TransactionList } from "../components/TransactionList";
 import Pagination from "../components/Pagination";
 import AddTransaction from "../components/AddTransaction";
-import Logout from "../components/Logout";
 
-import useDashboard from "../hooks/useDashBoard";
+import useDashboard from "../hooks/useDashboard";
 
 function Dashboard() {
     const {
@@ -66,6 +65,14 @@ function Dashboard() {
                 onSortChange={handleSortChange}
             />
 
+            <AddTransaction
+                onSuccess={refreshDashboard}
+                editingTransaction={editTransaction}
+                clearEditing={() =>
+                    setEditTransaction(null)
+                }
+            />
+
             <TransactionList
                 transactions={transactions}
                 onDelete={refreshDashboard}
@@ -79,15 +86,6 @@ function Dashboard() {
                 onNext={nextPage}
             />
 
-            <AddTransaction
-                onSuccess={refreshDashboard}
-                editingTransaction={editTransaction}
-                clearEditing={() =>
-                    setEditTransaction(null)
-                }
-            />
-
-            <Logout />
         </div>
     );
 }

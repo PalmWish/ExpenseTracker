@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth} from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../styles/login.css"
 
 
 
@@ -35,7 +36,7 @@ function Login(){
         }
     }
     return (
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className="form-login">
             <input
             type="email"
             placeholder="Email"

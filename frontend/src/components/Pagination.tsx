@@ -1,3 +1,5 @@
+import "../styles/pagination.css"
+
 type Props = {
     page: number;
     totalPages: number;
@@ -12,19 +14,21 @@ function Pagination({
     onNext
 }: Props) {
     return (
-        <div>
+        <div className="pagination">
             <button
+                className="page-button"
                 disabled={page === 1}
                 onClick={onPrevious}
             >
                 Previous
             </button>
 
-            <span>
+            <span className="page-info">
                 Page {page} of {totalPages}
             </span>
 
             <button
+                className="page-button"
                 disabled={page >= totalPages}
                 onClick={onNext}
             >
