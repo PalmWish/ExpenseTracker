@@ -9,6 +9,34 @@
     box-sizing: border-box;
 }
 
+.clear-all-button {
+  width: 30%;
+
+  padding: 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  background-color: white;
+  color: #dc2626;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.clear-all-button:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.option-clear{
+    display: flex;
+    justify-content: space-between;
+}
 .form-group{
     display: flex;
     flex-direction: column;

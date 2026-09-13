@@ -1,4 +1,4 @@
-import { PieChart, Tooltip, Pie, Legend, ResponsiveContainer, Cell } from "recharts";
+import { PieChart, Tooltip, Pie, Legend, ResponsiveContainer} from "recharts";
 import type { CategoryStat } from "../types/statistics";
 import "../styles/expenseChart.css"
 
