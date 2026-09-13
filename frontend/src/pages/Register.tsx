@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Logo from "./logo";
 import api from "../api/axios";
 import "../styles/register.css"
 
@@ -30,6 +31,11 @@ function Register(){
         }
     }
     return(
+
+        <>
+
+        <Logo/>
+        
         <form onSubmit={newRegister} className="form-regis">
             <input
             placeholder="Name"
@@ -58,6 +64,7 @@ function Register(){
                 Back to login page
             </Link>
         </form>
+        </>
     )
 }
 

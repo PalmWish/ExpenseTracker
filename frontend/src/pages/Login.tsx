@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth} from "../context/AuthContext";
+import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css"
 
@@ -36,6 +37,11 @@ function Login(){
         }
     }
     return (
+        
+        <>
+
+        <Logo/>
+        
         <form onSubmit={handleLogin} className="form-login">
             <input
             type="email"
@@ -56,6 +62,7 @@ function Login(){
             <p>Don't have an account? <Link to="/register">Register</Link></p>
 
         </form>
+        </>
     )   
         
 }

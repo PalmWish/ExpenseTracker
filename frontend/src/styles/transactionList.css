@@ -48,12 +48,8 @@
 
 .transaction-date{
     font-size: 14px;
-    color: #9ca3af;
+    color: #2a3d60;
 }
-
-/*.transaction-type{
-   text-align: right; 
-}*/
 
 .transaction-type p{
     margin: 4px 0;
@@ -73,7 +69,7 @@
 
 .transaction-type-text{
     font-size: 13px;
-    color: #9ca3af;
+    color: #2657aa;
     text-transform: capitalize;
 }
 
@@ -87,11 +83,11 @@
     padding: 8px 14px;
     border: none;
     border-radius: 7px;
-    background-color: rgb(149, 149, 249);
+    background-color: rgb(49, 159, 193);
     color: white;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 3px 0 #93c5fd;
+    box-shadow: 0 3px 0 rgb(49, 200, 193);
     transition: 0.1s;
 }
 
@@ -104,11 +100,11 @@
     padding: 8px 14px;
     border: none;
     border-radius: 7px;
-    background-color: oklch(78.473% 0.09939 19.491);
+    background-color: oklch(64.7% 0.17697 23.417);
     color: white;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 0 rgb(246, 202, 202);
+    box-shadow: 0 4px 0 rgb(239, 163, 163);
 }
 
 .delete-button:active{

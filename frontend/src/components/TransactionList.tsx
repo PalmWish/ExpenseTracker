@@ -1,6 +1,7 @@
 import type { Transaction } from "../types/transaction";
 import * as transactionService from "../services/transactionService"
 import { useState } from "react";
+import { useRef } from "react";
 import "../styles/transactionList.css"
 
 type Props ={
@@ -12,6 +13,7 @@ type Props ={
 function TransactionList({transactions, onDelete, onEdit}: Props) {
 
     const [error, setError] = useState("");
+    const addTransactionRef = useRef<HTMLDivElement>(null)
 
     async function handleDelete(id: string) {
         const confirmDelete = window.confirm("Delete this transaction?");
@@ -59,7 +61,16 @@ function TransactionList({transactions, onDelete, onEdit}: Props) {
 
                     <div className="transaction-action">
 
-                        <button className="edit-button" onClick={() => onEdit(item)}>Edit</button>
+                        <button className="edit-button"
+                                onClick={() => {onEdit(item);
+                                    setTimeout(() =>{
+                                        document.getElementById("add-transaction")?.scrollIntoView({
+                                            behavior:"auto",
+                                            block:"center"
+                                        })
+                                    },0)
+                                }}
+                                >Edit</button>
 
                         <button className="delete-button" onClick={() => handleDelete(item._id)}>Delete</button>
                     </div>

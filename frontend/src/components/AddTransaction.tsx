@@ -72,18 +72,30 @@ function AddTransaction({ onSuccess, editingTransaction, clearEditing }: Props){
 
     return(
         
-        <div className="add-transaction">
+        <div id="add-transaction" className="add-transaction">
 
+        
         <form onSubmit={handleSubmit}>
+
+            <div className="option-clear">
             {error && <p className="form-error">{error}</p>}
             <select 
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="form-group">
-                
+            className="form-group">                
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
             </select>
+     
+        {(amount !== "" || category !== "" || description !== "") && 
+        (<button type="button"
+                 className="clear-all-button"
+                 onClick={() =>{setAmount("");
+                                setCategory("")
+                                setDescription("");}}>
+                                    clear all
+                </button>)}
+            </div>
 
     <div className="form">
         <div className="form-group">

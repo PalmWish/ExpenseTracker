@@ -22,18 +22,26 @@ function TransactionFilter({
 }: Props) {
     return (
         <div className="transaction-filter">
+
+            <div className="search-input-wrapper">
             <input
                 type="text"
                 placeholder="Search Category or Description"
                 value={searchInput}
                 onChange={(e) =>
                     setSearchInput(e.target.value)
-                }
-            />
+                } />
+
+                {searchInput.length !== 0 && (<button type="button"
+                className="clear-search-button" onClick={() => {setSearchInput("")}}>
+                    x
+                </button>)}
+            </div>
 
             <button
                 type="button"
                 onClick={onSearch}
+                className="search"
             >
                 Search
             </button>
