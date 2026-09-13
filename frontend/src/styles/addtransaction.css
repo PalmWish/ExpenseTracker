@@ -1,0 +1,86 @@
+.add-transaction{
+    width: 90%;
+    max-width: 600px;
+    margin: 4px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group input{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 15px;
+    box-sizing: border-box;
+    margin: 20px 14px 12px 12px;
+}
+select{
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: rgb(246, 248, 247);
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+
+.form-group input:focus{
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.form-error{
+    margin: 0px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fee2e2;
+    color: #dc2626;
+    text-align: center;
+    font-size: 14px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px ;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #1e40af;
+    transition: 0.1s;
+    margin-top: 15px ;
+}
+
+.submit-button:hover {
+    background-color: #1d4ed8;
+}
+
+.submit-button:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+
+    .add-transaction {
+        width: 95%;
+
+        padding: 20px;
+    }
+
+}

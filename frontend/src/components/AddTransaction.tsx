@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import type { Transaction } from "../types/transaction";
 import * as transactionService from "../services/transactionService"
+import "../styles/addtransaction.css"
+
 type Props = {
     onSuccess: () => void;
     editingTransaction: Transaction | null;
@@ -70,36 +72,49 @@ function AddTransaction({ onSuccess, editingTransaction, clearEditing }: Props){
 
     return(
         
+        <div className="add-transaction">
+
         <form onSubmit={handleSubmit}>
-            {error && <p>{error}</p>}
+            {error && <p className="form-error">{error}</p>}
             <select 
             value={type}
-            onChange={(e) => setType(e.target.value)}>
+            onChange={(e) => setType(e.target.value)}
+            className="form-group">
                 
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
             </select>
 
+    <div className="form">
+        <div className="form-group">
             <input 
             type="number"
             placeholder="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}/>
+        </div>
 
+        <div className="form-group">
             <input 
             placeholder="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}/>
+        </div>
 
+        <div className="form-group">
             <input 
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}/>
+        </div>
+    </div>
 
-            <button disabled={loading}>
+            <button disabled={loading} className="submit-button">
     {loading ? "Saving..." : (editingTransaction ? "Update Transaction" : "Add Transaction")}
 </button>
         </form>
+
+        </div>
     )
 }
 
