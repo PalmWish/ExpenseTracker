@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import * as transactionService from "../services/transactionService";
-import user from "../models/user";
 
 const create = async (req: Request, res: Response) =>{
         

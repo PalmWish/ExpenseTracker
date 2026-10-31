@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swagger";
+import aiRoute from "./routes/aiRoute"
 import authRoutes from "./routes/authRoute";
 import transactionRoutes from "./routes/transactionRoute";
 import connectDB from "./config/db";
@@ -25,5 +26,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/ai", aiRoute);
 
 export default app;
