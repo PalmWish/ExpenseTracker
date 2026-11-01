@@ -1,9 +1,11 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/authMiddleware";
-import { financialChat } from "../controllers/aiController";
+import { financialChat, monthlyExpenseComparison } from "../controllers/aiController";
 
 const router = Router();
 
-router.post("/financial-chat", authMiddleware, financialChat)
+router.use(authMiddleware)
+router.post("/financial-chat", financialChat)
+router.get("/monthly-comparison", monthlyExpenseComparison )
 
 export default router;
