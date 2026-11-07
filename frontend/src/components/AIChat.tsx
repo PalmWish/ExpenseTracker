@@ -79,12 +79,12 @@ function AIChat(){
         <div className="ai-chat">
             <div className="ai-chat__header">
                 <h2>AI Financial Assistant</h2>
-                <p>ผู้ช่วยวิเคราะห์การเงินส่วนบุคคลของคุณ</p>
+                <p>Your financial advisor</p>
             </div>
 
             <div className="ai-chat__settings">
                 <label htmlFor="financial-period">
-                    วิเคราะห์ข้อมูล
+                    analyzing data
                 </label>
 
                 <select
@@ -96,11 +96,11 @@ function AIChat(){
                     disabled={isLoading}
                 >
                     <option value="this month">
-                        เดือนนี้
+                        this month
                     </option>
 
                     <option value="last month">
-                        เดือนก่อน
+                        last month
                     </option>
                 </select>
             </div>
@@ -108,7 +108,7 @@ function AIChat(){
             <div className="ai-chat__messages">
                 {messages.length === 0 && (
                     <div className="ai-chat__empty">
-                        <h3>สวัสดี! มีอะไรให้ช่วยวิเคราะห์ไหม?</h3>
+                        <h3>Hello! Anything to help?</h3>
                         <p>
                             ลองถามเกี่ยวกับรายรับ รายจ่าย
                             หรือพฤติกรรมการใช้เงินของคุณ
@@ -133,7 +133,7 @@ function AIChat(){
 
                 {isLoading && (
                     <div className="ai-chat__loading">
-                        AI กำลังวิเคราะห์ข้อมูล...
+                        AI is analyzing...
                     </div>
                 )}
             </div>
@@ -151,22 +151,21 @@ function AIChat(){
             void handleSubmit();
         }}
 >
-                <textarea
-                    value={input}
-                    onChange={(event) =>
-                        setInput(event.target.value)
-                    }
-                    placeholder="ถามเกี่ยวกับการเงินของคุณ..."
-                    maxLength={2000}
-                    rows={2}
-                    disabled={isLoading}
+                <input
+                type="text"
+                value={input}
+                onChange={(event) =>
+                setInput(event.target.value)}
+                placeholder="asking about your financial statement..."
+                maxLength={2000}
+                disabled={isLoading}
                 />
 
                 <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
                 >
-                    {isLoading ? "กำลังส่ง..." : "ส่งข้อความ"}
+                    {isLoading ? "sending" : "send"}
                 </button>
             </form>
         </div>

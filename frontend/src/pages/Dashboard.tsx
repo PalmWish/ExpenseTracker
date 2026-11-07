@@ -56,8 +56,6 @@ function Dashboard() {
                 data={expenseByCategory}
             />
 
-            <AIChat />
-
             <TransactionFilter
                 searchInput={searchInput}
                 typeFilter={typeFilter}
@@ -81,6 +79,8 @@ function Dashboard() {
                 onDelete={refreshDashboard}
                 onEdit={setEditTransaction}
             />
+
+            <AIChat />
 
             <Pagination
                 page={page}

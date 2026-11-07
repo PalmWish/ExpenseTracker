@@ -10,7 +10,7 @@
 }
 
 .transaction-table{
-    background-color: rgb(134, 217, 144);
+    background-color: rgb(186, 221, 245);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -29,7 +29,7 @@
 }
 
 .transaction-row:hover{
-    background-color: rgb(185, 238, 192);
+    background-color: rgb(161, 212, 245);
 }
 
 .transaction-info p{
