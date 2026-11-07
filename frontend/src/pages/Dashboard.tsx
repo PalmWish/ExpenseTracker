@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import DashboardSummary from "../components/DashboardSummary";
 import ExpenseChart from "../components/ExpenseChart";
 import TransactionFilter from "../components/TransactionFilter";
+import AIChat from "../components/AIchat";
 import { TransactionList } from "../components/TransactionList";
 import Pagination from "../components/Pagination";
 import AddTransaction from "../components/AddTransaction";
@@ -54,6 +55,8 @@ function Dashboard() {
             <ExpenseChart
                 data={expenseByCategory}
             />
+
+            <AIChat />
 
             <TransactionFilter
                 searchInput={searchInput}

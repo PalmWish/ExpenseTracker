@@ -9,7 +9,14 @@ import connectDB from "./config/db";
 
 const app = express();
 
-app.use(cors({ origin: "https://expense-tracker-seven-eta-59.vercel.app" }));
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://expense-tracker-seven-eta-59.vercel.app"
+];
+
+app.use(cors({
+    origin: allowedOrigins
+}));
 app.use(express.json());
 
 app.use(async (req, res, next) => {

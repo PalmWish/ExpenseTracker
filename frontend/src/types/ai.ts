@@ -23,4 +23,6 @@ type FinancialChatPayload = {
     period: "this month" | "last month";
 }
 
-export type {financialContext, FinancialResponse, FinancialChatPayload}
+type FinancialPeriod = "this month" | "last month";
+
+export type {financialContext, FinancialResponse, FinancialChatPayload, FinancialPeriod}
