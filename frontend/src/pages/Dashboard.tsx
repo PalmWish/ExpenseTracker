@@ -6,7 +6,7 @@ import AIChat from "../components/AIChat";
 import { TransactionList } from "../components/TransactionList";
 import Pagination from "../components/Pagination";
 import AddTransaction from "../components/AddTransaction";
-
+import "../styles/dashboard.css"
 import useDashboard from "../hooks/useDashboard";
 
 function Dashboard() {
@@ -37,7 +37,7 @@ function Dashboard() {
     } = useDashboard();
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <div className="load"><h2>Loading...</h2></div>
     }
 
     return (
