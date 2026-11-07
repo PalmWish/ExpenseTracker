@@ -10,6 +10,7 @@ type User = {
 type AuthContextType = {
     user: User | null;
     token: string | null;
+    isLoading: boolean;
     login: (token: string, user: User) => void;
     logout: () => void;
 }
@@ -19,8 +20,10 @@ const AuthContext = createContext<AuthContextType | null>(null);
 function AuthProvider({children}: {children: ReactNode}){
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() =>{
+        try{
         const storedToken = localStorage.getItem("token");
         const storedUser= localStorage.getItem("user");
 
@@ -28,10 +31,22 @@ function AuthProvider({children}: {children: ReactNode}){
             setToken(storedToken);
         }
 
-        if(storedUser){
+        else if(storedUser){
             setUser(JSON.parse(storedUser));
+
         }
-    },[])
+        else {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+            }
+        } catch (error) {
+            console.error("Failed to restore authentication:", error);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
 
     function login(token: string, user: User){
         localStorage.setItem("token", token);
@@ -51,7 +66,7 @@ function AuthProvider({children}: {children: ReactNode}){
     }
     return (
         <AuthContext.Provider
-        value={{ token, user, login, logout}}> {children} </AuthContext.Provider>
+        value={{ token, user, isLoading, login, logout}}> {children} </AuthContext.Provider>
     )
 }
 

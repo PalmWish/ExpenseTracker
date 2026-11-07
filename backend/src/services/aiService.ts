@@ -195,28 +195,27 @@ const askGemini = async ({
 };
 
 const askGeminiForExpenseComparison = async (comparisonData: {
-        currentMonth: {
-            period: string;
-            expense: number;
-        };
-        previousMonth: {
-            period: string;
-            expense: number;
-        };
-        comparison: {
-            difference: number;
-            percentageChange: number | null;
-            trend: string;
-        };
-        categoryComparison: {
-            category: string;
-            currentExpense: number;
-            previousExpense: number;
-            difference: number;
-            trend: string;
-        }[];
-    }
-) => {
+    currentMonth: {
+        period: string;
+        expense: number;
+    };
+    previousMonth: {
+        period: string;
+        expense: number;
+    };
+    comparison: {
+        difference: number;
+        percentageChange: number | null;
+        trend: string;
+    };
+    categoryComparison: {
+        category: string;
+        currentExpense: number;
+        previousExpense: number;
+        difference: number;
+        trend: string;
+    }[];
+}) => {
     const prompt = `
 คุณคือผู้ช่วยวิเคราะห์การเงินส่วนบุคคล
 
@@ -233,12 +232,18 @@ ${JSON.stringify(comparisonData, null, 2)}
 7. ไม่รวมรายรับในการวิเคราะห์
 `;
 
-     const response = await gemini.models.generateContent({
+    const response = await gemini.models.generateContent({
         model: "gemini-3.6-flash",
         contents: prompt
     });
 
-    return response.text;
+    const reply = response.text?.trim();
+
+    if (!reply) {
+        console.error("Gemini returned no text", response);
+        throw new Error("Gemini returned an empty response");
+    }
+   return reply;
 };
 
 export {getFinancialContext, compareMonthlyExpenses, compareExpenseCategories, askGemini, askGeminiForExpenseComparison}

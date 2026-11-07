@@ -48,6 +48,7 @@ function Login(){
             placeholder="Email"
             value={email}
             onChange={(e) =>{setEmail(e.target.value)}}
+            required
             />
 
             <input
@@ -55,6 +56,7 @@ function Login(){
             placeholder="Password"
             value={password}
             onChange={(e) =>{setPassword(e.target.value)}}
+            required
             />
 
             <button>Login</button>

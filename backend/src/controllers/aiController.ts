@@ -70,20 +70,19 @@ const monthlyExpenseComparison = async (
                 percentageChange:
                     comparison.percentageChange === null
                         ? null
-                        : Number(comparison.percentageChange),
+                        : Number(
+                            comparison.percentageChange.replace("%", "")
+                        ),
                 trend: comparison.trend
             },
             categoryComparison
         };
 
-        let reply: string | null = null
-        let aiError = false
+        const reply =
+            await askGeminiForExpenseComparison(comparisonData);
 
-        try {
-            reply = (await askGeminiForExpenseComparison(comparisonData)) ?? null;
-        } catch (error) {
-            aiError = true;
-            console.error("Gemini comparison error:", error);
+        if (!reply?.trim()) {
+            throw new Error("Gemini returned an empty response");
         }
 
         return res.status(200).json({

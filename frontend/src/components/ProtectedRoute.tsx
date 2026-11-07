@@ -8,7 +8,11 @@ type Props = {
 
 function ProtectedRoute({ children }: Props){
 
-    const token = useAuth();
+    const {token, isLoading} = useAuth();
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
 
     if(!token){
         return <Navigate to="/" replace />
