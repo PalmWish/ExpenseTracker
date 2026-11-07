@@ -16,19 +16,19 @@ function getErrorMessage(error: unknown): string {
         const backendMessage = error.response?.data?.message;
         
         if(status === 401){
-            return "Session หมดอายุหรือยังไม่ได้เข้าสู่ระบบ กรุณา Login ใหม่"
+            return "Session outdated or not login yet, please Login again"
         }
         if (status === 400) {
-            return backendMessage ?? "ข้อมูลที่ส่งไปไม่ถูกต้อง";
+            return backendMessage ?? "The information sent is incorrect";
         }
 
         if (status === 500) {
-            return backendMessage ?? "เกิดข้อผิดพลาดจาก Backend หรือบริการ AI";
+            return backendMessage ?? "An error occurred in the backend or the AI service";
         }
 
-        return backendMessage ?? "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้";
+        return backendMessage ?? "cannot connect to the server";
     }
-    return "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ"
+    return "An error of unknown cause occurred"
 }
 
 function AIChat(){
@@ -110,8 +110,8 @@ function AIChat(){
                     <div className="ai-chat__empty">
                         <h3>Hello! Anything to help?</h3>
                         <p>
-                            ลองถามเกี่ยวกับรายรับ รายจ่าย
-                            หรือพฤติกรรมการใช้เงินของคุณ
+                            Try asking about their income, expenses,
+                            or spending habits.
                         </p>
                     </div>
                 )}
@@ -123,7 +123,7 @@ function AIChat(){
                     >
                         <span className="ai-chat__role">
                             {message.role === "user"
-                                ? "คุณ"
+                                ? "you"
                                 : "AI Assistant"}
                         </span>
 
